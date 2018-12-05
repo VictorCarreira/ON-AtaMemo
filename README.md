@@ -1,4 +1,4 @@
-# Este repositório cria uma modelo de ATAS e MEMOBRANDOS para as reuniões discentes que ocorrerão entre os anos de 2018 e 2019.
+# Este repositório cria uma modelo de ATAS e MEMORANDOS para as reuniões discentes que ocorrerão entre os anos de 2018 e 2019.
 # Adiciona a classe ONmemoata.sty e dá outras providências
 
 ## Variáveis comuns a memorandos e atas. `type: Memorando ou ATA`

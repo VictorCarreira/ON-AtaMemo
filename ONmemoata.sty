@@ -1,0 +1,158 @@
+\ProvidesPackage{ONmemoata}
+\usepackage[a4paper, top=1.7in,bottom=1in,right=1in,left=1in,headheight=65pt]{geometry}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{ifthen}
+
+% yellow from UTFPR logo
+\definecolor{myblue}{RGB}{0, 127, 255}
+
+% custom footers and headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\usepackage{lipsum}
+\usepackage{todonotes}
+
+\usepackage{soul,color}
+\presetkeys{todonotes}{inline, author=\textbf{rag}, linecolor=green!70!white, backgroundcolor=blue!30!white, bordercolor=black!50, color=blue!30, size=\scriptsize}{}
+
+% Comando para correcoes.
+\newcommand{\correction}[2]{
+    \st{#1} \hl{#2}
+}
+
+
+% Retrieve the name of sender department and the acronym.
+\newcommand{\sender}[2]{
+	\newcommand{\senderMM}{#1}
+	\newcommand{\senderM}{#2}
+}
+
+\lhead{\includegraphics[width=.08\textwidth]{img/brasao}}
+\chead{
+    {\small \sffamily Ministério da Ciência, Tecnologia, Inovações e Comunicações}\\
+    {\small \bf \sffamily Observatório Nacional} \\
+    {\small \sffamily Curso de Geofísica}\\
+    {\small \sffamily  \senderMM}
+}
+\rhead{\includegraphics[width=0.18\textwidth]{img/ON-logo.eps}}
+\lfoot{}
+\cfoot{
+    {\scriptsize \sffamily Rua General José Cristino, 76 - Bairro Imperial de São Cristóvão}\\
+    {\scriptsize \sffamily CEP: 20921-400, Rio de Janeiro, RJ - Brasil}\\
+    {\scriptsize \sffamily Telefone Geral +55 (21) 3504-9100}}
+\rfoot{\sffamily Página \thepage / \pageref{LastPage}}
+
+% custom headrule
+\renewcommand\headrule{
+\begin{minipage}{1\textwidth}
+{\color{black}\hrule height .5mm width \hsize}
+{\color{myblue}\hrule height .5mm width \hsize}
+\end{minipage}}%
+
+% custom footrule
+\renewcommand\footrule{\begin{minipage}{1\textwidth}
+\hrule width \hsize height .1mm   
+\end{minipage}\par}%
+
+% custom page number
+\usepackage{lastpage}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+% space between lines
+\linespread{1.6}
+
+% set serial, title and date.
+\newcommand{\type}[1]{\newcommand{\typeM}{#1}}
+\newcommand{\serial}[1]{\newcommand{\serialM}{#1}}
+\newcommand{\data}[1]{\newcommand{\dataM}{#1}}
+\newcommand{\titulo}[1]{\newcommand{\tituloM}{#1}}
+\newcommand{\assunto}[1]{\newcommand{\assuntoM}{#1}}
+\newcommand{\para}[1]{\newcommand{\paraM}{#1}}
+\newcommand{\depto}[1]{\newcommand{\deptoM}{#1}}
+
+\newcommand{\memoata}{
+	\noindent
+	\begin{minipage}[t]{.49\textwidth}
+		\raggedright
+		\textbf{\typeM ~{N\textsuperscript{\underline{o}}}~\serialM ~-~\senderM}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{.49\textwidth}
+		\raggedleft
+		\textbf{São Cristóvão, \dataM.}
+	\end{minipage}
+
+	\ifthenelse{\equal{\typeM}{Memorando}}
+	{
+		% Memo.
+		\vspace{.3cm}
+		\linespread{1.0}
+		\noindent
+		\begin{tabular}{@{}p{1.5cm} p{15cm}}
+			{\bf Para:}  & \paraM \\
+			& \deptoM \\
+		\end{tabular}
+		\vspace{.3cm}
+		\newline
+		\noindent
+		\begin{tabular}{@{}p{1.5cm} p{15cm}}
+			{\bf Assunto:}  & \assuntoM
+		\end{tabular}
+		\vspace{.5cm}
+	}
+	{
+		% Ata.	
+		\noindent
+		\newline
+        \newline
+		\begin{tabular}{@{}p{\textwidth}}
+		{\bf \tituloM} \newline
+		\end{tabular}
+	}
+}
+
+\newcommand{\greetings}[1]{\newcommand{\greetingsM}{#1}
+\ifthenelse{\equal{\typeM}{Memorando}}
+{
+	\vspace{1.0cm}
+	\begin{tabular}{@{}p{\textwidth}}
+		{\greetingsM,} \\
+	\end{tabular}
+}
+}
+
+% set double column for signatures 
+\newcolumntype{P}[1]{>{\centering\arraybackslash\small}p{#1}}
+\newcommand{\doublesignature}[4]{
+    \begin{center}
+    \linespread{1.0}
+    \vspace{1.2cm}
+    \renewcommand{\arraystretch}{0.6}%
+    \begin{tabular}{P{6cm} P{2cm} P{6cm}}
+        \rule{6cm}{.1mm}   & & \rule{6cm}{.1mm} \\
+        {\bf #1}           & & {\bf #3} \\
+        {\footnotesize #2} & & {\footnotesize#4} \\
+    \end{tabular}
+    \end{center}
+}
+
+\newcommand{\signature}[2]{
+    \begin{center}
+    \linespread{1.0}
+    \vspace{1.2cm}
+    \renewcommand{\arraystretch}{0.6}% 
+    \begin{tabular}{P{2cm} P{6cm} P{2cm}}
+         & \rule{6cm}{.1mm}  &  \\
+         &   {\bf #1}        &  \\
+         & {\footnotesize#2} &  \\
+    \end{tabular}
+    \end{center}
+}
